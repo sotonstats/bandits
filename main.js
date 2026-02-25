@@ -1,6 +1,6 @@
 let round = 1;
 let score = 0;
-let totalRounds = 2; // Parameterized total rounds allowed
+let totalRounds = 10; // Parameterized total rounds allowed
 
 // Means and standard deviations for normally distributed rewards
 const interventionParams = [
