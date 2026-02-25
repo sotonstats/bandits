@@ -83,11 +83,45 @@ const numArms = 3;
 const bandit = new Bandit(numArms);
 
 // True parameters for each strategy (matching index.html)
-const trueParams = [
+const baseTrueParams = [
   { mean: 400, stddev: 150 },  // Red strategy
   { mean: 600, stddev: 150 },  // Blue strategy
   { mean: 800, stddev: 150 }   // Green strategy
 ];
+
+function shuffleArray(values) {
+  const arr = [...values];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function parseMeansFromQuery() {
+  const params = new URLSearchParams(window.location.search);
+  const meansParam = params.get("means");
+  if (!meansParam) return null;
+
+  const meanValues = meansParam
+    .split(",")
+    .map(value => Number.parseInt(value.trim(), 10))
+    .filter(value => Number.isFinite(value));
+
+  if (meanValues.length !== baseTrueParams.length) return null;
+  return meanValues;
+}
+
+function initializeTrueParams() {
+  const meanValues = parseMeansFromQuery();
+  const paramOrder = meanValues
+    ? meanValues.map(mean => ({ mean, stddev: 150 }))
+    : shuffleArray(baseTrueParams).map(param => ({ ...param }));
+
+  return paramOrder;
+}
+
+const trueParams = initializeTrueParams();
 bandit.trueParams = trueParams;
 
 const colors = ['#dc2626','#2563eb','#16a34a'];

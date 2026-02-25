@@ -4,11 +4,13 @@ let totalRounds = 10; // Parameterized total rounds allowed
 const rewardsByArm = [[], [], []];
 
 // Means and standard deviations for normally distributed rewards
-const interventionParams = [
+const baseInterventionParams = [
   { mean: 400, stddev: 150 },  // Intervention 1: mean 400, stddev 150
   { mean: 600, stddev: 150 },  // Intervention 2: mean 600, stddev 150
   { mean: 800, stddev: 150 }   // Intervention 3: mean 800, stddev 150
 ];
+
+let interventionParams = [];
 
 // Box-Muller transform to generate normally distributed random numbers
 function normalRandom(mean = 0, stddev = 1) {
@@ -16,6 +18,26 @@ function normalRandom(mean = 0, stddev = 1) {
   let u2 = Math.random();
   let z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
   return mean + z * stddev;
+}
+
+function shuffleArray(values) {
+  const arr = [...values];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function initializeInterventions() {
+  const randomized = shuffleArray(baseInterventionParams);
+  interventionParams = randomized.map(param => ({ ...param }));
+
+  const meanOrder = interventionParams.map(param => param.mean).join(",");
+  const bayesLink = document.querySelector(".modal-link a");
+  if (bayesLink) {
+    bayesLink.href = `bayes.html?means=${encodeURIComponent(meanOrder)}`;
+  }
 }
 
 
@@ -135,4 +157,8 @@ document.addEventListener("keydown", (event) => {
   if (reelIndex !== undefined) {
     pull(reelIndex);
   }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  initializeInterventions();
 });
