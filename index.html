@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Multi-Armed Bandit Demo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div id="app">
+    <header>
+      <h1>💉 Vaccine Distribution Optimizer</h1>
+      <div id="round">Round 1 / 5</div>
+    </header>
+
+    <div id="reels">
+        <div>
+        <div class="reel" id="reel0">
+            <div class="reel-content">Red Strategy</div>
+        </div>
+        <button onclick="pull(0)">Apply</button>
+      </div>
+      <div>
+        <div class="reel" id="reel1">
+            <div class="reel-content">Blue Strategy</div>
+        </div>
+        <button onclick="pull(1)">Apply</button>
+      </div>
+      <div>
+        <div class="reel" id="reel2">
+            <div class="reel-content">Green Strategy</div>
+        </div>
+        <button onclick="pull(2)">Apply</button>
+      </div>
+    </div>
+
+    <div id="controls">
+      <br />
+      <button onclick="goFullscreen()">Fullscreen</button>
+      <button onclick="resetGame()">Reset</button>
+    </div>
+
+    <footer>
+      <div id="reward">Last reward: –</div>
+      <div id="score">Total vaccines: 0</div>
+    </footer>
+
+    <!-- Final Score Modal -->
+    <div id="overlay-backdrop" class="overlay-backdrop" style="display: none;"></div>
+    <div id="final-score-modal" class="final-score-modal" style="display: none;">
+      <div class="modal-title">Game Complete!</div>
+      <div class="modal-score">Total Vaccines Distributed: <span id="final-score">0</span></div>
+      <div class="modal-info">Now let's see how a Bayesian algorithm would have performed...</div>
+      <div class="modal-buttons">
+        <div class="modal-link">
+          <a href="bayes.html">View Bayesian Results</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("round").textContent = `Round 1 / ${totalRounds}`;
+    });
+  </script>
+</body>
+</html>
