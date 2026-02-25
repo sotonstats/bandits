@@ -1,6 +1,7 @@
 let round = 1;
 let score = 0;
 let totalRounds = 10; // Parameterized total rounds allowed
+const rewardsByArm = [[], [], []];
 
 // Means and standard deviations for normally distributed rewards
 const interventionParams = [
@@ -37,6 +38,8 @@ function pull(i) {
   showInterventionOverlay(i, reward);
 
   document.getElementById("reward").textContent = `Last reward: +${reward} vaccines`;
+  rewardsByArm[i].push(reward);
+  document.getElementById(`reel${i}-rewards`).textContent = rewardsByArm[i].join(", ");
   document.getElementById("score").textContent = `Total vaccines: ${score}`;
 
   round++;
@@ -115,6 +118,11 @@ function resetGame() {
   document.getElementById("reward").textContent = "Last reward: –";
   document.getElementById("score").textContent = "Total vaccines: 0";
   document.getElementById("round").textContent = `Round 1 / ${totalRounds}`;
+
+  rewardsByArm.forEach((rewards, index) => {
+    rewards.length = 0;
+    document.getElementById(`reel${index}-rewards`).textContent = "–";
+  });
 
   // Enable buttons
   const buttons = document.querySelectorAll("button");

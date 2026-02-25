@@ -10,26 +10,38 @@
 
   <div id="app">
     <header>
-      <h1>💉 Vaccine Distribution Optimizer</h1>
+      <h1>💉 Vaccine Distribution</h1>
       <div id="round">Round 1 / 5</div>
     </header>
 
     <div id="reels">
-        <div>
+      <div>
         <div class="reel" id="reel0">
-            <div class="reel-content">Red Strategy</div>
+          <div class="reel-content">
+            <div class="reel-title reel-title-red">Red Strategy</div>
+            <div class="reel-label">Rewards</div>
+            <div class="reel-rewards" id="reel0-rewards">–</div>
+          </div>
         </div>
         <button onclick="pull(0)">Apply</button>
       </div>
       <div>
         <div class="reel" id="reel1">
-            <div class="reel-content">Blue Strategy</div>
+          <div class="reel-content">
+            <div class="reel-title reel-title-blue">Blue Strategy</div>
+            <div class="reel-label">Rewards</div>
+            <div class="reel-rewards" id="reel1-rewards">–</div>
+          </div>
         </div>
         <button onclick="pull(1)">Apply</button>
       </div>
       <div>
         <div class="reel" id="reel2">
-            <div class="reel-content">Green Strategy</div>
+          <div class="reel-content">
+            <div class="reel-title reel-title-green">Green Strategy</div>
+            <div class="reel-label">Rewards</div>
+            <div class="reel-rewards" id="reel2-rewards">–</div>
+          </div>
         </div>
         <button onclick="pull(2)">Apply</button>
       </div>
