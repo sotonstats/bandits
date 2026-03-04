@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="training-page">
+    <header>
+        <h1>Training Information</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Understanding Uncertainty</h2>
+            <p>When running this demo, encourage participants to think about the role of uncertainty in decision-making. Highlight how uncertainty can drive exploration to gather more information, as opposed to exploitation, where the focus is on leveraging known information to maximize rewards.</p>
+        </section>
+        <section>
+            <h2>Exploration vs. Exploitation</h2>
+            <p>Exploration involves trying out different options to discover their potential, even if they might not yield immediate rewards. Exploitation, on the other hand, focuses on choosing the option that is currently known to provide the best outcome. Balancing these two strategies is key to success in many real-world scenarios.
+            Try to encourage participants to think about their beliefs, and how they should balance explore vs. exploit in their decision making.
+            </p>
+        </section>
+        <section>
+            <h2>Running the Demo</h2>
+            <ul>
+                <li>
+                    Explain the scenario to the participant: there are three strategies for communicating the importance of vaccinations that they can try. They don't know in advance what effect each will have. The effect is <em>random</em>, but they have different <em>averages</em>: one has a small effect, one a medium effect and one a large effect.
+                </li>
+                <li>
+                    Rounds 1-3: Ask them to think about a sensible initial strategy. They don't know anything yet, so how will they gather information?
+                </li>
+                <li>
+                    Ask them which strategy they currently think is the best. Remind them that the reward is <em>random</em>, so how can they be sure? Try to encourage them to adopt a medium between explore and exploit (e.g. pull the two most promising arms, to check which is best).
+                </li>
+                <li>
+                    Around round 8: ask them which strategy they think is the best now, and why. What should they do now that they have decided?
+                </li>
+                <li>
+                    Once completed, before the Bayesian algorithm: ask them how they would have acted differently if they had 100 tries, instead of 10.
+                </li>
+            </ul>
+        </section>
+        <section>
+            <h2>Algorithms Overview</h2>
+            <p>
+                Once the above has been completed, move on to the Bayesian approach. Describe how it systematises what we just did: it starts with a distribution over the mean of each arm, and updates the distribution based on what it observes, using Bayes theorem. 
+            </p>
+            <p>
+                Using its current belief, a decision is made on which arm to pull based on one of the following approaches, each of which uses that belief in some way.
+            </p>
+            <h3>Thompson Sampling</h3>
+            <p>For each option, Thompson sampling samples from the posterior distribution of rewards and chooses the option with the highest sampled value. This method naturally balances exploration and exploitation by considering uncertainty in the reward estimates: more uncertain rewards (with wider posteriors) still have a chance of being selected provided the posterior width still encompasses the distribution of more promising arms.</p>
+            <h3>Bayesian Upper Confidence Bound (UCB)</h3>
+            <p>Bayesian UCB is a strategy that selects actions based on an upper confidence bound of the reward distribution. It uses Bayesian inference to estimate the reward distribution for each option and chooses the option with the highest upper bound. This approach emphasizes exploration by prioritizing options with high uncertainty, while still focusing on maximizing rewards. It is conceptually similar to Thompson sampling but is deterministic and, in some sense, chooses actions based on how good they plausibly could be, rather than using posterior samples.</p>
+        </section>
+    </main>
+</body>
+</html>
