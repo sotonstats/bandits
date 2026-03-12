@@ -159,6 +159,43 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
+// Add support for USB game controllers using the Gamepad API
+let gamepadButtonStates = {};
+
+function handleGamepadInput() {
+  const gamepads = navigator.getGamepads();
+
+  for (const gamepad of gamepads) {
+    if (!gamepad) continue;
+
+    // Map buttons to reel indices
+    const buttonMappings = {
+      0: 0, // Button A -> Left reel
+      1: 1, // Button B -> Middle reel
+      2: 2  // Button X -> Right reel
+    };
+
+    gamepad.buttons.forEach((button, index) => {
+      if (buttonMappings[index] !== undefined) {
+        if (button.pressed && !gamepadButtonStates[gamepad.index]?.[index]) {
+          pull(buttonMappings[index]);
+          if (!gamepadButtonStates[gamepad.index]) {
+            gamepadButtonStates[gamepad.index] = {};
+          }
+          gamepadButtonStates[gamepad.index][index] = true;
+        } else if (!button.pressed) {
+          if (gamepadButtonStates[gamepad.index]) {
+            gamepadButtonStates[gamepad.index][index] = false;
+          }
+        }
+      }
+    });
+  }
+}
+
+// Poll for gamepad input at regular intervals
+setInterval(handleGamepadInput, 100);
+
 document.addEventListener("DOMContentLoaded", () => {
   initializeInterventions();
 });
