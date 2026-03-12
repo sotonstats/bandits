@@ -485,3 +485,31 @@ function normalPDF(x, mean, stddev) {
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', initializeArms);
+
+// Add support for USB game controllers using the Gamepad API
+let gamepadButtonStates = {}; // Track button states
+
+function handleGamepadInput() {
+  const gamepads = navigator.getGamepads();
+
+  for (const gamepad of gamepads) {
+    if (!gamepad) continue;
+
+    gamepad.buttons.forEach((button, index) => {
+      if (button.pressed && !gamepadButtonStates[gamepad.index]?.[index]) {
+        runStep(); // Trigger "Pull Next Arm"
+        if (!gamepadButtonStates[gamepad.index]) {
+          gamepadButtonStates[gamepad.index] = {};
+        }
+        gamepadButtonStates[gamepad.index][index] = true;
+      } else if (!button.pressed) {
+        if (gamepadButtonStates[gamepad.index]) {
+          gamepadButtonStates[gamepad.index][index] = false;
+        }
+      }
+    });
+  }
+}
+
+// Poll for gamepad input at regular intervals
+setInterval(handleGamepadInput, 100);

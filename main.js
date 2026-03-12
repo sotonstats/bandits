@@ -70,6 +70,11 @@ function pull(i) {
   if (round > totalRounds) {
     setTimeout(showBayesDemo, 2500);
   }
+
+  // Reset isPullInProgress after overlay disappears
+  setTimeout(() => {
+    isPullInProgress = false;
+  }, 2500); // Match the overlay duration
 }
 
 function showInterventionOverlay(interventionIndex, reward) {
@@ -120,6 +125,9 @@ function showBayesDemo() {
 
   // Update final score
   document.getElementById("final-score").textContent = score;
+
+  // Set final overlay active
+  isFinalOverlayActive = true;
 }
 
 function goFullscreen() {
@@ -149,6 +157,9 @@ function resetGame() {
   // Enable buttons
   const buttons = document.querySelectorAll("button");
   buttons.forEach(button => button.style.visibility = "visible");
+
+  // Reset final overlay state
+  isFinalOverlayActive = false;
 }
 
 // Add event listener for keypresses
@@ -161,8 +172,12 @@ document.addEventListener("keydown", (event) => {
 
 // Add support for USB game controllers using the Gamepad API
 let gamepadButtonStates = {};
+let isPullInProgress = false; // Track if a pull is in progress
+let isFinalOverlayActive = false; // Track if the final overlay is active
 
 function handleGamepadInput() {
+  if (isPullInProgress) return; // Block input while pull is in progress
+
   const gamepads = navigator.getGamepads();
 
   for (const gamepad of gamepads) {
@@ -176,8 +191,15 @@ function handleGamepadInput() {
     };
 
     gamepad.buttons.forEach((button, index) => {
+      if (isFinalOverlayActive && button.pressed) {
+        // Redirect to Bayesian algorithm page if final overlay is active
+        window.location.href = document.querySelector(".modal-link a").href;
+        return;
+      }
+
       if (buttonMappings[index] !== undefined) {
         if (button.pressed && !gamepadButtonStates[gamepad.index]?.[index]) {
+          isPullInProgress = true; // Set pull in progress
           pull(buttonMappings[index]);
           if (!gamepadButtonStates[gamepad.index]) {
             gamepadButtonStates[gamepad.index] = {};
