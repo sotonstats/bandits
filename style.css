@@ -120,7 +120,7 @@ header h1 {
 }
 
 .reel-title-blue {
-  color: #2563eb;
+  color: #111827;
 }
 
 .reel-title-green {
@@ -132,7 +132,7 @@ header h1 {
 }
 
 #reel1 .reel-content {
-  color: #2563eb;
+  color: #111827;
 }
 
 #reel2 .reel-content {
@@ -144,7 +144,52 @@ header h1 {
 }
 
 #reel1 {
-  border-left: 8px solid #2563eb;
+  border-left: 8px solid #ffffff;
+}
+
+#reels > div:nth-child(2) > button {
+  background: #ffffff;
+  color: #111827;
+  border: 1px solid #d1d5db;
+  box-shadow: 0 4px 12px rgba(17, 24, 39, 0.18);
+}
+
+#reels > div:nth-child(2) > button:hover {
+  box-shadow: 0 8px 20px rgba(17, 24, 39, 0.22);
+}
+
+#reels > div:nth-child(2) > button:active {
+  box-shadow: 0 2px 6px rgba(17, 24, 39, 0.16);
+}
+
+#reels > div:nth-child(1) > button {
+  background: #dc2626;
+  color: #ffffff;
+  border: 1px solid #b91c1c;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.35);
+}
+
+#reels > div:nth-child(1) > button:hover {
+  box-shadow: 0 8px 20px rgba(220, 38, 38, 0.45);
+}
+
+#reels > div:nth-child(1) > button:active {
+  box-shadow: 0 2px 6px rgba(220, 38, 38, 0.3);
+}
+
+#reels > div:nth-child(3) > button {
+  background: #16a34a;
+  color: #ffffff;
+  border: 1px solid #15803d;
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.35);
+}
+
+#reels > div:nth-child(3) > button:hover {
+  box-shadow: 0 8px 20px rgba(22, 163, 74, 0.45);
+}
+
+#reels > div:nth-child(3) > button:active {
+  box-shadow: 0 2px 6px rgba(22, 163, 74, 0.3);
 }
 
 #reel2 {
@@ -343,7 +388,7 @@ footer {
 /* Bayesian page styles */
 #bayes-app {
   display: grid;
-  grid-template-rows: auto 1fr auto auto;
+  grid-template-rows: auto auto 1fr auto;
   height: 100vh;
   padding: 3vh 4vw;
   background: linear-gradient(to bottom, #e0f7fa, #ffffff);

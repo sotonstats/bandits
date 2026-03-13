@@ -124,8 +124,10 @@ function initializeTrueParams() {
 const trueParams = initializeTrueParams();
 bandit.trueParams = trueParams;
 
-const colors = ['#dc2626','#2563eb','#16a34a'];
-const colorNames = ['Red', 'Blue', 'Green'];
+const colors = ['#dc2626', '#ffffff', '#16a34a'];
+const accentColors = ['#dc2626', '#d1d5db', '#16a34a'];
+const fillColors = ['rgba(220, 38, 38, 0.19)', 'rgba(255, 255, 255, 0.75)', 'rgba(22, 163, 74, 0.19)'];
+const colorNames = ['Red', 'White', 'Green'];
 let armRows = [];
 let beliefChart = null; // Store chart instance for smooth updates
 let pullCountsChart = null; // Store pull counts chart instance
@@ -192,8 +194,8 @@ function drawBeliefGraph() {
     return {
       label: colorNames[i],
       data: yValues,
-      borderColor: colors[i],
-      backgroundColor: colors[i] + '30', // Semi-transparent
+      borderColor: accentColors[i],
+      backgroundColor: fillColors[i],
       fill: true,
       tension: 0.4, // Smooth curves
       borderWidth: 3,
@@ -216,7 +218,7 @@ function drawBeliefGraph() {
       data: scatterData,
       type: 'scatter',
       backgroundColor: colors[i],
-      borderColor: colors[i],
+      borderColor: accentColors[i],
       pointStyle: 'cross',
       pointRadius: 8,
       pointHoverRadius: 10,
@@ -241,7 +243,7 @@ function drawBeliefGraph() {
         const yBottom = yAxis.bottom;
         
         ctx.save();
-        ctx.strokeStyle = colors[i];
+        ctx.strokeStyle = accentColors[i];
         ctx.lineWidth = 2;
         ctx.setLineDash([8, 4]);
         ctx.beginPath();
@@ -404,8 +406,8 @@ function drawPullCounts() {
         datasets: [{
           label: 'Number of Pulls',
           data: pullCounts,
-          backgroundColor: colors.map(c => c + 'CC'), // Slightly transparent
-          borderColor: colors,
+          backgroundColor: ['rgba(220, 38, 38, 0.8)', 'rgba(255, 255, 255, 0.9)', 'rgba(22, 163, 74, 0.8)'],
+          borderColor: accentColors,
           borderWidth: 2,
         }]
       },
