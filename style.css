@@ -589,16 +589,21 @@ footer {
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0,98,139,0.1);
   padding: 1.5rem;
+  min-height: 0;
+  overflow: hidden;
 }
 
 #belief-graph {
   flex: 1;
-  min-height: 400px;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 #belief-canvas {
   display: block;
-  max-height: 350px;
+  flex: 1;
+  min-height: 0;
 }
 
 .graph-title {
@@ -611,15 +616,15 @@ footer {
 
 #pull-counts {
   width: 250px;
-  height: 400px;
+  min-height: 0;
   display: flex;
   flex-direction: column;
 }
 
 #pull-counts-canvas {
   display: block;
-  height: 100%;
-  max-height: 350px;
+  flex: 1;
+  min-height: 0;
 }
 
 .stat-item {
